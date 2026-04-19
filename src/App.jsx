@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import StudentCard from './components/StudentCard'
 import RegisterCourse from './components/RegisterCourse'
 
@@ -54,12 +54,16 @@ function App() {
     }
   ])
 
-  function handleAddCourse(newCourse) {
+  // useRef is used here instead of useState because we want to track the count without causing a re-render
+  const addedCount = useRef(0)
+
+  const handleAddCourse = useCallback((newCourse) => {
+    addedCount.current += 1
     setCourses(prev => [
       ...prev,
       { id: prev.length + 1, ...newCourse }
     ])
-  }
+  }, [])
 
   return (
       <div>
