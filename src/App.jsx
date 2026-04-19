@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import StudentCard from './components/StudentCard'
+import RegisterCourse from './components/RegisterCourse'
 
 function App() {
   const [courses, setCourses] = useState([
@@ -53,6 +54,13 @@ function App() {
     }
   ])
 
+  function handleAddCourse(newCourse) {
+    setCourses(prev => [
+      ...prev,
+      { id: prev.length + 1, ...newCourse }
+    ])
+  }
+
   return (
       <div>
         <h1>Ilir Bajrami</h1>
@@ -61,6 +69,7 @@ function App() {
         {courses.map(course => (
             <StudentCard key={course.id} course={course} />
         ))}
+        <RegisterCourse onAdd={handleAddCourse} />
       </div>
   )
 }
